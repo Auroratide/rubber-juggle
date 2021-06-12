@@ -10,6 +10,8 @@ import PlainText from '../PlainText'
 import Positioning from '../Positioning'
 import { Score } from '../Score'
 import { Dimensions } from '../Dimensions'
+import { OrbGenerator } from '../OrbGenerator'
+import { OrbFactory } from '../OrbFactory'
 
 export class PlayState extends PIXI.Container implements State {
     static NAME = 'play'
@@ -19,6 +21,7 @@ export class PlayState extends PIXI.Container implements State {
     private resources: Resources
 
     private generator: PegGenerator
+    private orbGen: OrbGenerator
 
     private score: Score
     private scoreText: PlainText
@@ -51,19 +54,28 @@ export class PlayState extends PIXI.Container implements State {
 
         ui.addChild(this.scoreText)
 
+        const orbLayer = new PIXI.Container()
+        orbLayer.addChild(orb)
+
         this.addChild(board)
-        this.addChild(orb)
+        this.addChild(orbLayer)
         this.addChild(deadZone)
         this.addChild(ui)
 
         this.ticker.add(this.updateScore)
 
-        this.generator = new PegGenerator(dim.width, dim.width, board, this.ticker)
+        this.generator = new PegGenerator(board, this.ticker)
         this.generator.start()
+
+        const orbFactory = new OrbFactory(orbLayer, this.ticker, board, this.score)
+
+        this.orbGen = new OrbGenerator(this.ticker, dim, orbFactory)
+        this.orbGen.start()
     }
 
     stop = () => {
         this.generator.stop()
+        this.orbGen.stop()
         this.ticker.remove(this.updateScore)
         this.removeChildren().forEach(child => {
             if(child instanceof PIXI.Container) {
