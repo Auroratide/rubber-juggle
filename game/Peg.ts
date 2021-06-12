@@ -16,7 +16,7 @@ export class Peg extends PIXI.Sprite {
 
         const graphics = new PIXI.Graphics()
         graphics.beginFill(0xff0000)
-        graphics.drawCircle(0, 0, 5)
+        graphics.drawCircle(0, 0, 10)
 
         this.addChild(graphics)
 
@@ -47,7 +47,8 @@ export class Peg extends PIXI.Sprite {
     }
 
     destroy() {
-        this.bands.forEach(band => {
+        const allBands = [...this.bands]
+        allBands.forEach(band => {
             this.board.removeBand(band)
             band.destroy()
         })
