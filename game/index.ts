@@ -22,10 +22,8 @@ app.loader.load(() => {
     const board = new Pegboard()
     const orb = new Orb(app.ticker, board.bands)
 
-    const peg1 = board.makePeg(150, 300)
-    const peg2 = board.makePeg(350, 250)
-    board.makePeg(300, 100)
-    board.makePeg(50, 100)
+    for (let i = 0; i < 12; ++i)
+        board.makePeg(Math.random() * 480, Math.random() * 480)
 
     app.stage.addChild(text)
     app.stage.addChild(board)

@@ -39,4 +39,10 @@ export class Band extends PIXI.Sprite {
 
         return Angle.fromRadians(Math.sign(v.x * p1.y - v.y * p1.x) * a1)
     }
+
+    destroy() {
+        this.first.removeBand(this)
+        this.second.removeBand(this)
+        super.destroy()
+    }
 }
