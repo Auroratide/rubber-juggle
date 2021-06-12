@@ -20,7 +20,7 @@ export class Orb extends PIXI.Sprite {
         this.ticker.add(this.onTick)
 
         const graphics = new PIXI.Graphics()
-        graphics.beginFill(0xffffff)
+        graphics.beginFill(0x008800)
         graphics.drawCircle(0, 0, this.radius)
 
         this.addChild(graphics)

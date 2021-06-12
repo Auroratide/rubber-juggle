@@ -1,14 +1,16 @@
 import * as PIXI from 'pixi.js'
 import { Peg } from './Peg'
 import { Band } from './Band'
+import { Resources } from './aliases'
+import { assets } from './assets'
 
-export class Pegboard extends PIXI.Container {
+export class Pegboard extends PIXI.TilingSprite {
     readonly pegs: Peg[]
     readonly bands: Band[]
     private preparedPeg: Peg
 
-    constructor() {
-        super()
+    constructor(resources: Resources, renderer: PIXI.Renderer) {
+        super(resources[assets.hole].texture, renderer.width, renderer.height)
 
         this.pegs = []
         this.bands = []

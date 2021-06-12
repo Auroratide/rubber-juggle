@@ -5,7 +5,7 @@ import { PlayState } from './states/PlayState'
 
 export const setup = (stage: PIXI.Container, renderer: PIXI.Renderer, ticker: PIXI.Ticker) => (loader: PIXI.Loader, resources: Resources) => {
     const stateManager = new StateManager()
-    const play = new PlayState(ticker)
+    const play = new PlayState(renderer, ticker, resources)
     stateManager.register(PlayState.NAME, play)
 
     stage.addChild(play)

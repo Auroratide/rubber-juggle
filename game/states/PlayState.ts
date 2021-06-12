@@ -4,21 +4,27 @@ import { Pegboard } from '../Pegboard'
 import { State } from './State'
 import { PegGenerator } from '../PegGenerator'
 import { Velocity } from '../Velocity'
+import { Resources } from '../aliases'
 
 export class PlayState extends PIXI.Container implements State {
     static NAME = 'play'
 
+    private renderer: PIXI.Renderer
     private ticker: PIXI.Ticker
+    private resources: Resources
+
     private generator: PegGenerator
     
-    constructor(ticker: PIXI.Ticker) {
+    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources) {
         super()
 
+        this.renderer = renderer
         this.ticker = ticker
+        this.resources = resources
     }
 
     start = () => {
-        const board = new Pegboard()
+        const board = new Pegboard(this.resources, this.renderer)
         const orb = new Orb(240, 120, new Velocity(0, 0.5), this.ticker, board.bands)
 
         for (let i = 0; i < 12; ++i)
