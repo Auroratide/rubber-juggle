@@ -35,14 +35,14 @@ export class FakeBand extends PIXI.Sprite {
         g.clear()
 
         g.lineStyle({
-            width: 3,
+            width: 6,
             color: 0xc2a37c,
         })
 
-        g.moveTo(f.x + 3 * perp.x, f.y + 3 * perp.y)
-        g.lineTo(s.x + 9 * perp.x, s.y + 9 * perp.y)
-        g.arc(s.x, s.y, 9, perp.angleBetween(new Vector(1, 0)).radians, perp.angleBetween(new Vector(1, 0)).opposite().radians, true)
-        g.moveTo(f.x - 3 * perp.x, f.y - 3 * perp.y)
-        g.lineTo(s.x - 9 * perp.x, s.y - 9 * perp.y)
+        g.moveTo(f.x + 6 * perp.x, f.y + 6 * perp.y)
+        g.lineTo(s.x + 18 * perp.x, s.y + 18 * perp.y)
+        g.arc(s.x, s.y, 18, perp.angleBetween(new Vector(1, 0)).radians, perp.angleBetween(new Vector(1, 0)).opposite().radians, true)
+        g.moveTo(f.x - 6 * perp.x, f.y - 6 * perp.y)
+        g.lineTo(s.x - 18 * perp.x, s.y - 18 * perp.y)
     }
 }

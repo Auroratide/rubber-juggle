@@ -19,7 +19,7 @@ export class Peg extends PIXI.Sprite {
 
         const graphics = new PIXI.Graphics()
         graphics.beginFill(0xff0000)
-        graphics.drawCircle(0, 0, 10)
+        graphics.drawCircle(0, 0, 20)
 
         this.addChild(graphics)
 

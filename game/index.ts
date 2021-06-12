@@ -22,15 +22,15 @@ WebFont.load({
 
 function start() {
     const app = new PIXI.Application({
-        width: 480,
-        height: 480,
+        width: 960,
+        height: 960,
         antialias: true,
     })
     
     document.body.append(app.view)
     
     app.loader
-        .add(assets.hole)
+        .add(assets.hole) // wow I just realized how close this looks to a certain other word
         .load(setup(app.stage, app.renderer as Renderer, app.ticker))
 }
 

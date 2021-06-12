@@ -14,7 +14,7 @@ export class DeadZone extends PIXI.Sprite {
     }
 
     draw = () => {
-        const t = 40
+        const t = this.renderer.width / 12
         const g = this.graphics
         const w = this.renderer.width
         const h = this.renderer.height

@@ -15,7 +15,7 @@ export class Orb extends PIXI.Sprite {
     constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[], score: Score) {
         super()
 
-        this.radius = 10
+        this.radius = 20
 
         this.ticker = ticker
         this.bands = bands
@@ -54,8 +54,8 @@ export class Orb extends PIXI.Sprite {
             sin * this.velocity.x + cos * this.velocity.y,
         )
 
-        if (this.velocity.magnitude() <= 1.5)
-            this.velocity = this.velocity.increaseBy(0.025)
+        if (this.velocity.magnitude() <= 3)
+            this.velocity = this.velocity.increaseBy(0.05)
     }
 
     isCollidingWith = (band: Band): boolean => {

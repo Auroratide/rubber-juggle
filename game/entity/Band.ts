@@ -48,13 +48,13 @@ export class Band extends PIXI.Sprite {
         const perp = new Vector(s.x - f.x, s.y - f.y).perpendicular().normalized()
 
         g.lineStyle({
-            width: 3,
+            width: 6,
             color: 0xc2a37c,
         })
 
-        g.moveTo(f.x + 3 * perp.x, f.y + 3 * perp.y)
-        g.lineTo(s.x + 3 * perp.x, s.y + 3 * perp.y)
-        g.moveTo(f.x - 3 * perp.x, f.y - 3 * perp.y)
-        g.lineTo(s.x - 3 * perp.x, s.y - 3 * perp.y)
+        g.moveTo(f.x + 6 * perp.x, f.y + 6 * perp.y)
+        g.lineTo(s.x + 6 * perp.x, s.y + 6 * perp.y)
+        g.moveTo(f.x - 6 * perp.x, f.y - 6 * perp.y)
+        g.lineTo(s.x - 6 * perp.x, s.y - 6 * perp.y)
     }
 }

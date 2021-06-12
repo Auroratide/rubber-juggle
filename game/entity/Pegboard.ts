@@ -4,6 +4,7 @@ import { Band } from './Band'
 import { Resources } from '../aliases'
 import { assets } from '../assets'
 import { FakeBand } from './FakeBand'
+import { Dimensions } from '../Dimensions'
 
 export class Pegboard extends PIXI.TilingSprite {
     private ticker: PIXI.Ticker
@@ -16,9 +17,14 @@ export class Pegboard extends PIXI.TilingSprite {
     private pegsLayer: PIXI.Container
     private bandsLayer: PIXI.Container
     private fakeBandsLayer: PIXI.Container
+    private renderer: PIXI.Renderer
+    private dimensions: Dimensions
 
     constructor(resources: Resources, renderer: PIXI.Renderer, ticker: PIXI.Ticker) {
         super(resources[assets.hole].texture, renderer.width, renderer.height)
+
+        this.renderer = renderer
+        this.dimensions = new Dimensions(this.renderer)
 
         this.pegs = []
         this.bands = []
@@ -72,7 +78,7 @@ export class Pegboard extends PIXI.TilingSprite {
     }
 
     makeRandomPeg: () => Peg = () => {
-        return this.makePeg(Math.floor(Math.random() * 10) * 40 + 60, Math.floor(Math.random() * 10) * 40 + 60)
+        return this.makePeg(Math.floor(Math.random() * (this.dimensions.tileCount - 2)) * (this.dimensions.tileWidth) + (this.dimensions.tileWidth * 1.5), Math.floor(Math.random() * (this.dimensions.tileCount - 2)) * (this.dimensions.tileWidth) + (this.dimensions.tileWidth * 1.5))
     }
 
     prepareBand = (peg: Peg) => {

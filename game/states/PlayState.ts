@@ -9,6 +9,7 @@ import { Resources } from '../aliases'
 import PlainText from '../PlainText'
 import Positioning from '../Positioning'
 import { Score } from '../Score'
+import { Dimensions } from '../Dimensions'
 
 export class PlayState extends PIXI.Container implements State {
     static NAME = 'play'
@@ -33,15 +34,16 @@ export class PlayState extends PIXI.Container implements State {
     start = () => {
         this.score = new Score()
         const positioning = new Positioning(this.renderer)
+        const dim = new Dimensions(this.renderer)
         
         const ui = new PIXI.Container()
-        this.scoreText = new PlainText(this.score.value().toString().padStart(6, '0'), 24, 'center')
+        this.scoreText = new PlainText(this.score.value().toString().padStart(6, '0'), dim.width / 20, 'center')
         this.scoreText.anchor.set(0.5, 0)
         positioning.topCenter(this.scoreText)
 
         const deadZone = new DeadZone(this.renderer)
         const board = new Pegboard(this.resources, this.renderer, this.ticker)
-        const orb = new Orb(240, 120, new Velocity(0, 0.5), this.ticker, board.bands, this.score)
+        const orb = new Orb(dim.width / 2, dim.width / 4, new Velocity(0, 1), this.ticker, board.bands, this.score)
 
         for (let i = 0; i < 12; ++i) {
             board.makeRandomPeg()
@@ -56,7 +58,7 @@ export class PlayState extends PIXI.Container implements State {
 
         this.ticker.add(this.updateScore)
 
-        this.generator = new PegGenerator(480, 480, board, this.ticker)
+        this.generator = new PegGenerator(dim.width, dim.width, board, this.ticker)
         this.generator.start()
     }
 
