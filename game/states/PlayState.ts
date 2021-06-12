@@ -40,7 +40,7 @@ export class PlayState extends PIXI.Container implements State {
         positioning.topCenter(this.scoreText)
 
         const deadZone = new DeadZone(this.renderer)
-        const board = new Pegboard(this.resources, this.renderer)
+        const board = new Pegboard(this.resources, this.renderer, this.ticker)
         const orb = new Orb(240, 120, new Velocity(0, 0.5), this.ticker, board.bands, this.score)
 
         for (let i = 0; i < 12; ++i) {

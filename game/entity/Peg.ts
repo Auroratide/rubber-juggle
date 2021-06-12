@@ -3,10 +3,13 @@ import { Pegboard } from './Pegboard'
 import { Band } from './Band'
 
 export class Peg extends PIXI.Sprite {
+    private ticker: PIXI.Ticker
     private board: Pegboard
     bands: Band[]
 
-    constructor(x: number, y: number, board: Pegboard) {
+    private blinkDirection: number = -0.05
+
+    constructor(x: number, y: number, board: Pegboard, ticker: PIXI.Ticker) {
         super()
 
         this.x = x
@@ -23,6 +26,8 @@ export class Peg extends PIXI.Sprite {
         this.interactive = true
         this.on('mousedown', this.onPress)
         this.on('mouseup', this.onRelease)
+
+        this.ticker = ticker
     }
 
     onPress = () => {
@@ -46,12 +51,24 @@ export class Peg extends PIXI.Sprite {
         this.bands.splice(this.bands.indexOf(band), 1)
     }
 
+    gonnaDieSoon = () => {
+        this.ticker.add(this.blink)
+    }
+
     destroy() {
+        this.ticker.remove(this.blink)
         const allBands = [...this.bands]
         allBands.forEach(band => {
             this.board.removeBand(band)
             band.destroy()
         })
         super.destroy()
+    }
+
+    private blink = () => {
+        this.alpha += this.blinkDirection
+        if (this.alpha <= 0 || this.alpha >= 1) {
+            this.blinkDirection *= -1
+        }
     }
 }

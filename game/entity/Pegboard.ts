@@ -5,6 +5,7 @@ import { Resources } from '../aliases'
 import { assets } from '../assets'
 
 export class Pegboard extends PIXI.TilingSprite {
+    private ticker: PIXI.Ticker
     readonly pegs: Peg[]
     readonly bands: Band[]
     private preparedPeg: Peg
@@ -12,7 +13,7 @@ export class Pegboard extends PIXI.TilingSprite {
     private pegsLayer: PIXI.Container
     private bandsLayer: PIXI.Container
 
-    constructor(resources: Resources, renderer: PIXI.Renderer) {
+    constructor(resources: Resources, renderer: PIXI.Renderer, ticker: PIXI.Ticker) {
         super(resources[assets.hole].texture, renderer.width, renderer.height)
 
         this.pegs = []
@@ -26,6 +27,8 @@ export class Pegboard extends PIXI.TilingSprite {
 
         this.addChild(this.bandsLayer)
         this.addChild(this.pegsLayer)
+
+        this.ticker = ticker
     }
 
     killOldestPeg = () => {
@@ -36,10 +39,12 @@ export class Pegboard extends PIXI.TilingSprite {
             }
             peg.destroy()
         }
+
+        this.pegs[0].gonnaDieSoon()
     }
 
     makePeg: (x: number, y: number) => Peg = (x, y) => {
-        const peg = new Peg(x, y, this)
+        const peg = new Peg(x, y, this, this.ticker)
         this.pegsLayer.addChild(peg)
         this.pegs.push(peg)
         return peg
