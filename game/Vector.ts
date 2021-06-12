@@ -18,4 +18,7 @@ export class Vector {
     
     scaleBy: (n: number) => Vector = (n) =>
         new Vector(this.x * n, this.y * n)
+    
+    perpendicular: () => Vector = () =>
+        new Vector(-this.y, this.x)
 }

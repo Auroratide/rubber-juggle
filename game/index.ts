@@ -6,6 +6,7 @@ import { assets } from './assets'
 const app = new PIXI.Application({
     width: 480,
     height: 480,
+    antialias: true,
 })
 
 document.body.append(app.view)

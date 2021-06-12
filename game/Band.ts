@@ -6,22 +6,17 @@ import { Vector } from './Vector';
 export class Band extends PIXI.Sprite {
     private first: Peg
     private second: Peg
+
+    private graphics: PIXI.Graphics
     
     constructor(first: Peg, second: Peg) {
         super()
         this.first = first
         this.second = second
 
-        const graphics = new PIXI.Graphics()
-
-        graphics.lineStyle({
-            width: 2,
-            color: 0x00ff00,
-        })
-        graphics.moveTo(first.x, first.y)
-        graphics.lineTo(second.x, second.y)
-
-        this.addChild(graphics)
+        this.graphics = new PIXI.Graphics()
+        this.draw()
+        this.addChild(this.graphics)
     }
 
     distanceFrom: (o: PIXI.DisplayObject) => number = (o) => {
@@ -44,5 +39,22 @@ export class Band extends PIXI.Sprite {
         this.first.removeBand(this)
         this.second.removeBand(this)
         super.destroy()
+    }
+
+    draw = () => {
+        const g = this.graphics
+        const f = this.first
+        const s = this.second
+        const perp = new Vector(s.x - f.x, s.y - f.y).perpendicular().normalized()
+
+        g.lineStyle({
+            width: 3,
+            color: 0xc2a37c,
+        })
+
+        g.moveTo(f.x + 3 * perp.x, f.y + 3 * perp.y)
+        g.lineTo(s.x + 3 * perp.x, s.y + 3 * perp.y)
+        g.moveTo(f.x - 3 * perp.x, f.y - 3 * perp.y)
+        g.lineTo(s.x - 3 * perp.x, s.y - 3 * perp.y)
     }
 }
