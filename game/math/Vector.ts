@@ -1,3 +1,5 @@
+import { Angle } from './Angle'
+
 export class Vector {
     readonly x: number
     readonly y: number
@@ -21,4 +23,10 @@ export class Vector {
     
     perpendicular: () => Vector = () =>
         new Vector(-this.y, this.x)
+    
+    angleBetween: (v: Vector) => Angle = (v) => {
+        const a1 = Math.acos(v.dot(this) / (v.magnitude() * this.magnitude()))
+
+        return Angle.fromRadians(Math.sign(v.x * this.y - v.y * this.x) * a1)
+    }
 }
