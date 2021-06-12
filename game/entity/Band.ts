@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
-import { Angle } from './Angle';
+import { Angle } from '../math/Angle';
 import { Peg } from './Peg';
-import { Vector } from './Vector';
+import { Vector } from '../math/Vector';
 
 export class Band extends PIXI.Sprite {
     private first: Peg

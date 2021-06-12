@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import { Pegboard } from './Pegboard'
+import { Pegboard } from './entity/Pegboard'
 import { RepeatingTask } from './RepeatingTask'
 
 export class PegGenerator {

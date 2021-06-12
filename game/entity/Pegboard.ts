@@ -1,8 +1,8 @@
 import * as PIXI from 'pixi.js'
 import { Peg } from './Peg'
 import { Band } from './Band'
-import { Resources } from './aliases'
-import { assets } from './assets'
+import { Resources } from '../aliases'
+import { assets } from '../assets'
 
 export class Pegboard extends PIXI.TilingSprite {
     readonly pegs: Peg[]

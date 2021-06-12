@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js'
-import { Angle } from './Angle'
+import { Angle } from '../math/Angle'
 import { Band } from './Band'
-import { Velocity } from './Velocity'
+import { Velocity } from '../math/Velocity'
 
 export class Orb extends PIXI.Sprite {
     private radius: number
