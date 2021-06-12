@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js'
 import { Angle } from '../math/Angle'
 import { Band } from './Band'
 import { Velocity } from '../math/Velocity'
+import { Score } from '../Score'
 
 export class Orb extends PIXI.Sprite {
     private radius: number
@@ -9,8 +10,9 @@ export class Orb extends PIXI.Sprite {
     velocity: Velocity
     private bands: Band[]
     private lastBounced: Band
+    private score: Score
 
-    constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[]) {
+    constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[], score: Score) {
         super()
 
         this.radius = 10
@@ -29,6 +31,7 @@ export class Orb extends PIXI.Sprite {
         this.lastBounced = null
 
         this.velocity = velocity
+        this.score = score
     }
 
     onTick = () => {
@@ -36,6 +39,7 @@ export class Orb extends PIXI.Sprite {
 
         this.bands.forEach(band => {
             if (this.lastBounced !== band && this.isCollidingWith(band)) {
+                this.score.add(10 * this.velocity.magnitude())
                 this.bounce(band.angleBetween(this.velocity))
                 this.lastBounced = band
             }
