@@ -28,7 +28,7 @@ export class PlayState extends PIXI.Container implements State {
         const orb = new Orb(240, 120, new Velocity(0, 0.5), this.ticker, board.bands)
 
         for (let i = 0; i < 12; ++i)
-            board.makePeg(Math.random() * 480, Math.random() * 480)
+            board.makeRandomPeg()
 
         this.addChild(board)
         this.addChild(orb)

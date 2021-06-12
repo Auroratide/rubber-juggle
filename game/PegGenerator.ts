@@ -13,7 +13,7 @@ export class PegGenerator {
         this.height = height
         this.board = board
         this.task = new RepeatingTask(ticker, () => {
-            this.board.makePeg(Math.random() * this.width, Math.random() * this.height)
+            this.board.makeRandomPeg()
             this.board.killOldestPeg()
         }, () => Math.random() * 2500 + 2500)
     }
