@@ -34,7 +34,12 @@ export class Band extends PIXI.Sprite {
     }
 
     angleBetween: (v: Vector) => Angle = (v) => {
-        const p = new Vector(this.second.x - this.first.x, this.second.y - this.first.y)
-        return Angle.fromRadians(Math.acos(v.dot(p) / (v.magnitude() * p.magnitude())))
+        const p1 = new Vector(this.second.x - this.first.x, this.second.y - this.first.y)
+        const a1 = Math.acos(v.dot(p1) / (v.magnitude() * p1.magnitude()))
+
+        const p2 = new Vector(this.first.x - this.second.x, this.first.y - this.second.y)
+        const a2 = Math.acos(v.dot(p2) / (v.magnitude() * p2.magnitude()))
+
+        return a1 < a2 ? Angle.fromRadians(a1) : Angle.fromRadians(a2)
     }
 }
