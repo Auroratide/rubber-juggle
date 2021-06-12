@@ -21,4 +21,8 @@ export class PegGenerator {
     start = () => {
         this.task.start()
     }
+
+    stop = () => {
+        this.task.stop()
+    }
 }
