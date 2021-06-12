@@ -15,17 +15,12 @@ const app = new PIXI.Application({
 document.body.append(app.view)
 
 app.loader.load(() => {
-    const text = new PIXI.Text('Hello world', {
-        fill: 0xffffff,
-    })
-    
     const board = new Pegboard()
     const orb = new Orb(app.ticker, board.bands)
 
     for (let i = 0; i < 12; ++i)
         board.makePeg(Math.random() * 480, Math.random() * 480)
 
-    app.stage.addChild(text)
     app.stage.addChild(board)
     app.stage.addChild(orb)
 
