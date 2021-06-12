@@ -10,7 +10,7 @@ export class Orb extends PIXI.Sprite {
     private bands: Band[]
     private lastBounced: Band
 
-    constructor(ticker: PIXI.Ticker, bands: Band[]) {
+    constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[]) {
         super()
 
         this.radius = 10
@@ -24,11 +24,11 @@ export class Orb extends PIXI.Sprite {
         graphics.drawCircle(0, 0, this.radius)
 
         this.addChild(graphics)
-        this.x = 0
-        this.y = 0
+        this.x = x
+        this.y = y
         this.lastBounced = null
 
-        this.velocity = new Velocity(0.5, 0.5)
+        this.velocity = velocity
     }
 
     onTick = () => {
@@ -49,6 +49,9 @@ export class Orb extends PIXI.Sprite {
             cos * this.velocity.x - sin * this.velocity.y,
             sin * this.velocity.x + cos * this.velocity.y,
         )
+
+        if (this.velocity.magnitude() <= 1.5)
+            this.velocity = this.velocity.increaseBy(0.025)
     }
 
     isCollidingWith = (band: Band): boolean => {

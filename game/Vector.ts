@@ -12,4 +12,10 @@ export class Vector {
     
     magnitude: () => number = () =>
         Math.sqrt(this.x * this.x + this.y * this.y)
+
+    normalized: () => Vector = () =>
+        new Vector(this.x / this.magnitude(), this.y / this.magnitude())
+    
+    scaleBy: (n: number) => Vector = (n) =>
+        new Vector(this.x * n, this.y * n)
 }

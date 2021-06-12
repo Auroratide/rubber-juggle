@@ -6,6 +6,12 @@ export class Velocity extends Vector {
         super(x, y)
     }
 
+    increaseBy: (value: number) => Velocity = (value) => {
+        const m = this.magnitude()
+        const v = this.normalized().scaleBy(m + value)
+        return new Velocity(v.x, v.y)
+    }
+
     apply = (obj: PIXI.DisplayObject) => {
         obj.position.set(obj.x + this.x, obj.y + this.y)
     }

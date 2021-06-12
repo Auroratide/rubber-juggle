@@ -3,6 +3,7 @@ import { Orb } from '../Orb'
 import { Pegboard } from '../Pegboard'
 import { State } from './State'
 import { PegGenerator } from '../PegGenerator'
+import { Velocity } from '../Velocity'
 
 export class PlayState extends PIXI.Container implements State {
     static NAME = 'play'
@@ -18,7 +19,7 @@ export class PlayState extends PIXI.Container implements State {
 
     start = () => {
         const board = new Pegboard()
-        const orb = new Orb(this.ticker, board.bands)
+        const orb = new Orb(240, 120, new Velocity(0, 0.5), this.ticker, board.bands)
 
         for (let i = 0; i < 12; ++i)
             board.makePeg(Math.random() * 480, Math.random() * 480)
