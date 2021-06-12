@@ -41,7 +41,7 @@ export class Pegboard extends PIXI.TilingSprite {
     }
 
     makeRandomPeg: () => Peg = () => {
-        return this.makePeg(Math.floor(Math.random() * 12) * 40 + 20, Math.floor(Math.random() * 12) * 40 + 20)
+        return this.makePeg(Math.floor(Math.random() * 10) * 40 + 60, Math.floor(Math.random() * 10) * 40 + 60)
     }
 
     prepareBand = (peg: Peg) => {

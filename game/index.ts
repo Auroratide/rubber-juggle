@@ -2,15 +2,35 @@ import * as PIXI from 'pixi.js'
 import { Renderer } from 'pixi.js'
 import { setup } from './setup'
 import { assets } from './assets'
+import * as WebFont from 'webfontloader'
 
-const app = new PIXI.Application({
-    width: 480,
-    height: 480,
-    antialias: true,
+WebFont.load({
+    google: {
+        families: [assets.font]
+    },
+    fontloading: () => {
+        let el = document.createElement('p')
+        el.style.fontFamily = assets.font
+        el.style.fontSize = '0'
+        el.style.visibility = 'hidden'
+        el.innerHTML = '.'
+    
+        document.body.appendChild(el)
+    },
+    active: () => setTimeout(start, 100),
 })
 
-document.body.append(app.view)
+function start() {
+    const app = new PIXI.Application({
+        width: 480,
+        height: 480,
+        antialias: true,
+    })
+    
+    document.body.append(app.view)
+    
+    app.loader
+        .add(assets.hole)
+        .load(setup(app.stage, app.renderer as Renderer, app.ticker))
+}
 
-app.loader
-    .add(assets.hole)
-    .load(setup(app.stage, app.renderer as Renderer, app.ticker))
