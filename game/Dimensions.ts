@@ -11,4 +11,6 @@ export class Dimensions {
 
     get tileCount() { return 12 }
     get tileWidth() { return this.renderer.width / this.tileCount }
+
+    get unitFont() { return this.width / 20 }
 }

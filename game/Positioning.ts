@@ -6,6 +6,14 @@ export default class Positioning {
         this.renderer = renderer
     }
 
+    y = (obj: PIXI.DisplayObject, units: number) => {
+        obj.y = units
+    }
+    
+    centerX = (obj: PIXI.DisplayObject) => {
+        obj.x = this.renderer.width / 2
+    }
+
     center = (obj: PIXI.DisplayObject) => {
         obj.position.set(this.renderer.width / 2, this.renderer.height / 2)
     }

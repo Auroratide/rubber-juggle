@@ -54,7 +54,7 @@ export class Orb extends PIXI.Sprite {
             sin * this.velocity.x + cos * this.velocity.y,
         )
 
-        if (this.velocity.magnitude() <= 3)
+        if (this.velocity.magnitude() <= 5)
             this.velocity = this.velocity.increaseBy(0.05)
     }
 
