@@ -9,6 +9,9 @@ export class Pegboard extends PIXI.TilingSprite {
     readonly bands: Band[]
     private preparedPeg: Peg
 
+    private pegsLayer: PIXI.Container
+    private bandsLayer: PIXI.Container
+
     constructor(resources: Resources, renderer: PIXI.Renderer) {
         super(resources[assets.hole].texture, renderer.width, renderer.height)
 
@@ -17,6 +20,12 @@ export class Pegboard extends PIXI.TilingSprite {
         this.preparedPeg = null
 
         this.interactive = true
+
+        this.pegsLayer = new PIXI.Container()
+        this.bandsLayer = new PIXI.Container()
+
+        this.addChild(this.bandsLayer)
+        this.addChild(this.pegsLayer)
     }
 
     killOldestPeg = () => {
@@ -26,7 +35,7 @@ export class Pegboard extends PIXI.TilingSprite {
 
     makePeg: (x: number, y: number) => Peg = (x, y) => {
         const peg = new Peg(x, y, this)
-        this.addChild(peg)
+        this.pegsLayer.addChild(peg)
         this.pegs.push(peg)
         return peg
     }
@@ -47,7 +56,7 @@ export class Pegboard extends PIXI.TilingSprite {
 
     joinPegs: (first: Peg, second: Peg) => Band = (first, second) => {
         const band = first.joinTo(second)
-        this.addChild(band)
+        this.bandsLayer.addChild(band)
         this.bands.push(band)
 
         return band
