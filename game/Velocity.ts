@@ -1,12 +1,9 @@
 import * as PIXI from 'pixi.js'
+import { Vector } from './Vector'
 
-export class Velocity {
-    readonly x: number
-    readonly y: number
-
+export class Velocity extends Vector {
     constructor(x: number, y: number) {
-        this.x = x
-        this.y = y
+        super(x, y)
     }
 
     apply = (obj: PIXI.DisplayObject) => {

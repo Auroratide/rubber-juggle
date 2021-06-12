@@ -1,20 +1,26 @@
 import * as PIXI from 'pixi.js'
 import { Angle } from './Angle'
+import { Band } from './Band'
 import { Velocity } from './Velocity'
 
 export class Orb extends PIXI.Sprite {
+    private radius: number
     private ticker: PIXI.Ticker
     private velocity: Velocity
+    private bands: Band[]
 
-    constructor(ticker: PIXI.Ticker) {
+    constructor(ticker: PIXI.Ticker, bands: Band[]) {
         super()
 
+        this.radius = 10
+
         this.ticker = ticker
+        this.bands = bands
         this.ticker.add(this.onTick)
 
         const graphics = new PIXI.Graphics()
         graphics.beginFill(0xffffff)
-        graphics.drawCircle(0, 0, 10)
+        graphics.drawCircle(0, 0, this.radius)
 
         this.addChild(graphics)
         this.x = 0
@@ -25,15 +31,24 @@ export class Orb extends PIXI.Sprite {
 
     onTick = () => {
         this.velocity.apply(this)
+
+        if (this.bands.length > 0 && this.isCollidingWith(this.bands[0])) {
+            console.log(this.bands[0].angleBetween(this.velocity).degrees)
+            this.bounce(this.bands[0].angleBetween(this.velocity))
+        }
     }
 
     bounce = (angle: Angle) => {
-        const cos = Math.cos(2 * angle.radians)
-        const sin = Math.sin(2 * angle.radians)
+        const cos = Math.cos(-2 * angle.radians)
+        const sin = Math.sin(-2 * angle.radians)
         this.velocity = new Velocity(
             cos * this.velocity.x - sin * this.velocity.y,
             sin * this.velocity.x + cos * this.velocity.y,
         )
+    }
+
+    isCollidingWith = (band: Band): boolean => {
+        return band.distanceFrom(this) <= this.radius
     }
 
     destroy() {

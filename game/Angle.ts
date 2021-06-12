@@ -5,6 +5,10 @@ export class Angle {
         this.radians = radians
     }
 
+    get degrees(): number {
+        return this.radians * 180 / Math.PI
+    }
+
     static fromRadians(value: number): Angle {
         return new Angle(value)
     }
