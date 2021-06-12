@@ -3,7 +3,8 @@
         "module": "CommonJS",
         "target": "ESNext",
         "sourceMap": true,
-        "noImplicitAny": true
+        "noImplicitAny": true,
+        "esModuleInterop": true,
     },
     "include": [ "game/**/*" ]
 }
