@@ -35,7 +35,7 @@ export class Pegboard extends PIXI.Container {
 
     joinPreparedPeg: (to: Peg) => Band = (to) => {
         const band = this.joinPegs(this.preparedPeg, to)
-        this.prepareBand = null
+        this.preparedPeg = null
         return band
     }
 
