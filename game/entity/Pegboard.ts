@@ -30,7 +30,12 @@ export class Pegboard extends PIXI.TilingSprite {
 
     killOldestPeg = () => {
         const peg = this.pegs.shift()
-        if (peg) peg.destroy()
+        if (peg) {
+            if (this.preparedPeg === peg) {
+                this.preparedPeg = null
+            }
+            peg.destroy()
+        }
     }
 
     makePeg: (x: number, y: number) => Peg = (x, y) => {
@@ -49,9 +54,13 @@ export class Pegboard extends PIXI.TilingSprite {
     }
 
     joinPreparedPeg: (to: Peg) => Band = (to) => {
-        const band = this.joinPegs(this.preparedPeg, to)
-        this.preparedPeg = null
-        return band
+        if (this.preparedPeg) {
+            const band = this.joinPegs(this.preparedPeg, to)
+            this.preparedPeg = null
+            return band
+        } else {
+            return null
+        }
     }
 
     joinPegs: (first: Peg, second: Peg) => Band = (first, second) => {
