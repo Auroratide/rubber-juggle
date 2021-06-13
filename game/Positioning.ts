@@ -26,7 +26,7 @@ export default class Positioning {
         obj.position.set(this.renderer.width - padding, 0)
     }
 
-    bottomCenter = (obj: PIXI.DisplayObject) => {
-        obj.position.set(this.renderer.width / 2, this.renderer.height)
+    bottomCenter = (obj: PIXI.DisplayObject, padding: number = 0) => {
+        obj.position.set(this.renderer.width / 2, this.renderer.height - padding)
     }
 }

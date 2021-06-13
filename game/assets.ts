@@ -9,5 +9,10 @@ export const assets = {
             'assets/balloon/pop-003.png',
         ],
     },
+    wood: {
+        title: 'assets/wood/title.png',
+        bottom: 'assets/wood/bottom.png',
+        button: 'assets/wood/button.png',
+    },
     font: 'Saira Stencil One',
 }

@@ -36,6 +36,9 @@ function start() {
         .add(assets.balloon.pop[0])
         .add(assets.balloon.pop[1])
         .add(assets.balloon.pop[2])
+        .add(assets.wood.title)
+        .add(assets.wood.bottom)
+        .add(assets.wood.button)
         .load(setup(app.stage, app.renderer as Renderer, app.ticker))
 }
 

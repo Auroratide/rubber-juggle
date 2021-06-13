@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js'
 import { TextStyleAlign } from 'pixi.js'
 import { assets } from './assets'
+import { colors } from './colors'
 
 export default class PlainText extends PIXI.Text {
     constructor(text: string, size: number = 32, align: TextStyleAlign = 'center', width?: number) {
@@ -15,5 +16,10 @@ export default class PlainText extends PIXI.Text {
 
         this.resolution = 2
         this.anchor.set(0.5)
+    }
+
+    wooden = () => {
+        this.style.fill = colors.woodText
+        return this
     }
 }
