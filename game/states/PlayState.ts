@@ -101,7 +101,9 @@ export class PlayState extends PIXI.Container implements State {
 
     checkForGameOver = () => {
         if (this.orbLayer.children.length === 0) {
-            this.stateManager.transitionTo(GameOverState.NAME)
+            this.stateManager.transitionTo(GameOverState.NAME, {
+                score: this.score
+            })
         }
     }
 }

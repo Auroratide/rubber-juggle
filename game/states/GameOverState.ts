@@ -38,7 +38,7 @@ export class GameOverState extends PIXI.Container implements State {
         const dim = new Dimensions(this.renderer)
         
         this.background(dim)
-        this.text(pos, dim, new Score(100))
+        this.text(pos, dim, context.score ?? new Score(0))
     }
     
     stop = () => {
