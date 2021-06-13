@@ -9,6 +9,7 @@ import { assets } from '../assets'
 import { BoardButton } from '../entity/BoardButton'
 import { StateManager } from './StateManager'
 import { PlayState } from './PlayState'
+import { Save } from '../Save'
 
 export class MenuState extends PIXI.Container implements State {
     static NAME = 'menu'
@@ -17,14 +18,16 @@ export class MenuState extends PIXI.Container implements State {
     private resources: Resources
     private ticker: PIXI.Ticker
     private stateManager: StateManager
+    private save: Save
 
-    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager) {
+    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager, save: Save) {
         super()
         
         this.renderer = renderer
         this.resources = resources
         this.ticker = ticker
         this.stateManager = stateManager
+        this.save = save
     }
 
     start = () => {
@@ -63,7 +66,7 @@ export class MenuState extends PIXI.Container implements State {
         credits.anchor.set(0.5, 1)
         pos.bottomCenter(credits, 9 * dim.tileWidth / 8)
 
-        const highscore = new PlainText(`Highscore: 000000`, dim.rem(1)).wooden()
+        const highscore = new PlainText(`Highscore: ${this.save.highscore.get().padStart(6, '0')}`, dim.rem(1)).wooden()
         pos.centerX(highscore)
         pos.y(highscore, 3 * dim.width / 8 - dim.rem(0.5))
 

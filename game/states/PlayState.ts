@@ -14,6 +14,7 @@ import { OrbGenerator } from '../OrbGenerator'
 import { OrbFactory } from '../OrbFactory'
 import { StateManager } from './StateManager'
 import { GameOverState } from './GameOverState'
+import { Save } from '../Save'
 
 export class PlayState extends PIXI.Container implements State {
     static NAME = 'play'
@@ -21,6 +22,7 @@ export class PlayState extends PIXI.Container implements State {
     private renderer: PIXI.Renderer
     private ticker: PIXI.Ticker
     private resources: Resources
+    private save: Save
 
     private generator: PegGenerator
     private orbGen: OrbGenerator
@@ -31,13 +33,14 @@ export class PlayState extends PIXI.Container implements State {
     private orbLayer: PIXI.Container
     private stateManager: StateManager
 
-    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager) {
+    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager, save: Save) {
         super()
 
         this.renderer = renderer
         this.ticker = ticker
         this.resources = resources
         this.stateManager = stateManager
+        this.save = save
     }
 
     start = () => {
@@ -101,6 +104,9 @@ export class PlayState extends PIXI.Container implements State {
 
     checkForGameOver = () => {
         if (this.orbLayer.children.length === 0) {
+            if (this.score.value() > parseInt(this.save.highscore.get()))
+                this.save.highscore.set(this.score.value().toString())
+
             this.stateManager.transitionTo(GameOverState.NAME, {
                 score: this.score
             })
