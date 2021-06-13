@@ -3,6 +3,8 @@ import { Angle } from '../math/Angle'
 import { Band } from './Band'
 import { Velocity } from '../math/Velocity'
 import { Score } from '../Score'
+import { Resources } from '../aliases'
+import { assets } from '../assets'
 
 export class Orb extends PIXI.Sprite {
     private radius: number
@@ -12,20 +14,17 @@ export class Orb extends PIXI.Sprite {
     private lastBounced: Band
     private score: Score
 
-    constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[], score: Score) {
-        super()
+    constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[], score: Score, resources: Resources) {
+        super(resources[assets.balloon.idle[0]].texture)
 
         this.radius = 20
+
+        this.anchor.set(0.5, 0.5)
 
         this.ticker = ticker
         this.bands = bands
         this.ticker.add(this.onTick)
 
-        const graphics = new PIXI.Graphics()
-        graphics.beginFill(0x008800)
-        graphics.drawCircle(0, 0, this.radius)
-
-        this.addChild(graphics)
         this.x = x
         this.y = y
         this.lastBounced = null

@@ -46,7 +46,7 @@ export class PlayState extends PIXI.Container implements State {
 
         const deadZone = new DeadZone(this.renderer)
         const board = new Pegboard(this.resources, this.renderer, this.ticker)
-        const orb = new Orb(dim.width / 2, dim.width / 4, new Velocity(0, 1), this.ticker, board.bands, this.score)
+        const orb = new Orb(dim.width / 2, dim.width / 4, new Velocity(0, 1), this.ticker, board.bands, this.score, this.resources)
 
         for (let i = 0; i < 12; ++i) {
             board.makeRandomPeg()
@@ -67,7 +67,7 @@ export class PlayState extends PIXI.Container implements State {
         this.generator = new PegGenerator(board, this.ticker)
         this.generator.start()
 
-        const orbFactory = new OrbFactory(orbLayer, this.ticker, board, this.score)
+        const orbFactory = new OrbFactory(orbLayer, this.ticker, board, this.score, this.resources)
 
         this.orbGen = new OrbGenerator(this.ticker, dim, orbFactory)
         this.orbGen.start()
