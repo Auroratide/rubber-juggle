@@ -7,6 +7,7 @@ import { Resources } from '../aliases'
 import { assets } from '../assets'
 import { Dimensions } from '../Dimensions'
 import { Vector } from '../math/Vector'
+import { SoundManager } from '../SoundManager'
 
 export class Orb extends PIXI.AnimatedSprite {
     private resources: Resources
@@ -18,13 +19,15 @@ export class Orb extends PIXI.AnimatedSprite {
     private lastBounced: Band
     private score: Score
     popped: boolean
+    private sfx: SoundManager
 
     private idleWait: number
 
-    constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[], score: Score, resources: Resources, dimensions: Dimensions) {
+    constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[], score: Score, resources: Resources, dimensions: Dimensions, sfx: SoundManager) {
         super(assets.balloon.idle.map(it => resources[it].texture))
         this.resources = resources
         this.dimensions = dimensions
+        this.sfx = sfx
 
         this.radius = 20
 
@@ -74,6 +77,8 @@ export class Orb extends PIXI.AnimatedSprite {
 
         if (this.velocity.magnitude() <= 5)
             this.velocity = this.velocity.increaseBy(0.05)
+        
+        this.sfx.thump.play()
     }
 
     pop = () => {
@@ -84,6 +89,7 @@ export class Orb extends PIXI.AnimatedSprite {
             this.loop = false
             this.animationSpeed = 1
             this.play()
+            this.sfx.pop.play()
         }
     }
 

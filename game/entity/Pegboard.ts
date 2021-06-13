@@ -5,6 +5,7 @@ import { Resources } from '../aliases'
 import { assets } from '../assets'
 import { FakeBand } from './FakeBand'
 import { Dimensions } from '../Dimensions'
+import { SoundManager } from '../SoundManager'
 
 export class Pegboard extends PIXI.TilingSprite {
     private ticker: PIXI.Ticker
@@ -20,12 +21,14 @@ export class Pegboard extends PIXI.TilingSprite {
     private fakeBandsLayer: PIXI.Container
     private renderer: PIXI.Renderer
     private dimensions: Dimensions
+    private sfx: SoundManager
 
-    constructor(resources: Resources, renderer: PIXI.Renderer, ticker: PIXI.Ticker) {
+    constructor(resources: Resources, renderer: PIXI.Renderer, ticker: PIXI.Ticker, sfx: SoundManager) {
         super(resources[assets.hole].texture, renderer.width, renderer.height)
 
         this.resources = resources
         this.renderer = renderer
+        this.sfx = sfx
         this.dimensions = new Dimensions(this.renderer)
 
         this.pegs = []
@@ -57,6 +60,7 @@ export class Pegboard extends PIXI.TilingSprite {
             peg.destroy()
         }
 
+        this.sfx.thimp.play()
         this.pegs[0].gonnaDieSoon()
     }
 
@@ -93,6 +97,7 @@ export class Pegboard extends PIXI.TilingSprite {
         if (this.preparedPeg) {
             const band = this.joinPegs(this.preparedPeg, to)
             this.preparedPeg = null
+            this.sfx.place.play()
             return band
         } else {
             return null

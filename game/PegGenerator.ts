@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js'
 import { Pegboard } from './entity/Pegboard'
 import { RepeatingTask } from './RepeatingTask'
+import { SoundManager } from './SoundManager'
 
 export class PegGenerator {
     private board: Pegboard
