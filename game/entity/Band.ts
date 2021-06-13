@@ -3,7 +3,7 @@ import { Angle } from '../math/Angle';
 import { Peg } from './Peg';
 import { Vector } from '../math/Vector';
 
-export class Band extends PIXI.Sprite {
+export class Band extends PIXI.Container {
     private first: Peg
     private second: Peg
 
