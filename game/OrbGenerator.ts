@@ -25,7 +25,7 @@ export class OrbGenerator {
                 Math.sin(angle.radians) * dimensions.width / 3 + dimensions.width / 2,
                 new Velocity(-Math.cos(angle.radians), -Math.sin(angle.radians)),
             )
-        }, () => 12000)
+        }, () => 10000)
     }
 
     start = () => {

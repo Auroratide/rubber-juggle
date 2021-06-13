@@ -16,6 +16,7 @@ import { StateManager } from './StateManager'
 import { GameOverState } from './GameOverState'
 import { Save } from '../Save'
 import { NewBalloonBar } from '../entity/NewBalloonBar'
+import { SoundManager } from '../SoundManager'
 
 export class PlayState extends PIXI.Container implements State {
     static NAME = 'play'
@@ -33,8 +34,9 @@ export class PlayState extends PIXI.Container implements State {
 
     private orbLayer: PIXI.Container
     private stateManager: StateManager
+    private sfx: SoundManager
 
-    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager, save: Save) {
+    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager, save: Save, sfx: SoundManager) {
         super()
 
         this.renderer = renderer
@@ -42,6 +44,7 @@ export class PlayState extends PIXI.Container implements State {
         this.resources = resources
         this.stateManager = stateManager
         this.save = save
+        this.sfx = sfx
     }
 
     start = () => {

@@ -22,6 +22,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
+    "@pixi/sound": "^4.0.4",
     "pixi.js": "^6.0.4",
     "webfontloader": "^1.6.28"
   }

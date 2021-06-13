@@ -23,4 +23,11 @@ export const assets = {
         button: 'assets/wood/button.png',
     },
     font: 'Saira Stencil One',
+    sfx: {
+        click: 'assets/sfx/click.mp3',
+        thimp: 'assets/sfx/thimp.mp3',
+        place: 'assets/sfx/place.mp3',
+        pop: 'assets/sfx/pop.mp3',
+        thump: 'assets/sfx/thump.mp3',
+    }
 }

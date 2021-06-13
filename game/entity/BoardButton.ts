@@ -4,6 +4,7 @@ import { assets } from '../assets'
 import PlainText from '../PlainText'
 import { Angle } from '../math/Angle'
 import { Dimensions } from '../Dimensions'
+import { SoundManager } from '../SoundManager'
 
 export class BoardButton extends PIXI.Container {
     private static ROTATION = Angle.fromDegrees(30)
@@ -12,12 +13,14 @@ export class BoardButton extends PIXI.Container {
 
     private board: PIXI.Sprite
     private text: PlainText
+    private sfx: SoundManager
 
-    constructor(text: string, resources: Resources, dim: Dimensions, action: () => void) {
+    constructor(text: string, resources: Resources, dim: Dimensions, sfx: SoundManager, action: () => void) {
         super()
         this.action = action
         
         const empty = new PIXI.Sprite()
+        this.sfx = sfx
 
         this.board = new PIXI.Sprite(resources[assets.wood.button].texture)
         this.board.anchor.set(0.0555, 0.166)
@@ -61,6 +64,7 @@ export class BoardButton extends PIXI.Container {
     }
 
     private onRelease = () => {
+        this.sfx.click.play()
         this.action()
     }
 }

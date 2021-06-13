@@ -11,6 +11,7 @@ import { assets } from '../assets'
 import { BoardButton } from '../entity/BoardButton'
 import { PlayState } from './PlayState'
 import { MenuState } from './MenuState'
+import { SoundManager } from '../SoundManager'
 
 interface GameOverContext {
     score: Score
@@ -23,14 +24,16 @@ export class GameOverState extends PIXI.Container implements State {
     private resources: Resources
     private ticker: PIXI.Ticker
     private stateManager: StateManager
+    private sfx: SoundManager
 
-    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager) {
+    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager, sfx: SoundManager) {
         super()
         
         this.renderer = renderer
         this.ticker = ticker
         this.resources = resources
         this.stateManager = stateManager
+        this.sfx = sfx
     }
 
     start = (context: GameOverContext) => {
@@ -72,13 +75,13 @@ export class GameOverState extends PIXI.Container implements State {
         pos.centerX(scoreText)
         pos.y(scoreText, 3 * dim.width / 8)
 
-        const play = new BoardButton('Retry', this.resources, dim, () => {
+        const play = new BoardButton('Retry', this.resources, dim, this.sfx, () => {
             this.stateManager.transitionTo(PlayState.NAME)
         })
         play.x = dim.tile(2)
         play.y = dim.tile(6)
 
-        const menu = new BoardButton('Menu', this.resources, dim, () => {
+        const menu = new BoardButton('Menu', this.resources, dim, this.sfx, () => {
             this.stateManager.transitionTo(MenuState.NAME)
         })
         menu.x = dim.tile(7)

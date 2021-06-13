@@ -10,6 +10,7 @@ import { BoardButton } from '../entity/BoardButton'
 import { StateManager } from './StateManager'
 import { PlayState } from './PlayState'
 import { Save } from '../Save'
+import { SoundManager } from '../SoundManager'
 
 export class MenuState extends PIXI.Container implements State {
     static NAME = 'menu'
@@ -19,8 +20,9 @@ export class MenuState extends PIXI.Container implements State {
     private ticker: PIXI.Ticker
     private stateManager: StateManager
     private save: Save
+    private sfx: SoundManager
 
-    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager, save: Save) {
+    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager, save: Save, sfx: SoundManager) {
         super()
         
         this.renderer = renderer
@@ -28,6 +30,7 @@ export class MenuState extends PIXI.Container implements State {
         this.ticker = ticker
         this.stateManager = stateManager
         this.save = save
+        this.sfx = sfx
     }
 
     start = () => {
@@ -70,7 +73,7 @@ export class MenuState extends PIXI.Container implements State {
         pos.centerX(highscore)
         pos.y(highscore, 3 * dim.width / 8 - dim.rem(0.5))
 
-        const play = new BoardButton('Play!', this.resources, dim, () => {
+        const play = new BoardButton('Play!', this.resources, dim, this.sfx, () => {
             this.stateManager.transitionTo(PlayState.NAME)
         })
         play.x = dim.tile(4)
