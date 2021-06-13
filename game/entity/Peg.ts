@@ -29,12 +29,10 @@ export class Peg extends PIXI.Sprite {
     }
 
     onPress = () => {
-        console.log('Pressed a peg')
         this.board.prepareBand(this)
     }
 
     onRelease = () => {
-        console.log('Released a peg')
         this.board.joinPreparedPeg(this)
     }
 
