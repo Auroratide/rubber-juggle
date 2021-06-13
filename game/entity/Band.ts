@@ -20,12 +20,19 @@ export class Band extends PIXI.Sprite {
     }
 
     distanceFrom: (o: PIXI.DisplayObject) => number = (o) => {
-        const p1 = this.first
-        const p2 = this.second
-        const dx = p2.x - p1.x
-        const dy = p2.y - p1.y
+        // Distance to line segment
+        // https://math.stackexchange.com/questions/330269/the-distance-from-a-point-to-a-line-segment
+        const s1 = new Vector(this.first.x, this.first.y)
+        const s2 = new Vector(this.second.x, this.second.y)
+        const p = new Vector(o.x, o.y)
+        const s = (t: number) => new Vector(s1.x + t * (s2.x - s1.x), s1.y + t * (s2.y - s1.y))
 
-        return Math.abs(dx * (p1.y - o.y) - (p1.x - o.x) * dy) / Math.sqrt(dx * dx + dy * dy)
+        const m = s2.minus(s1).magnitude()
+
+        const th = (p.minus(s1).dot(s2.minus(s1))) / (m * m)
+        const ts = Math.min(Math.max(th, 0), 1)
+
+        return s(ts).minus(p).magnitude()
     }
 
     angleBetween: (v: Vector) => Angle = (v) => {

@@ -9,6 +9,13 @@ export class Vector {
         this.y = y
     }
 
+    toString(): string {
+        return `(${this.x}, ${this.y})`
+    }
+
+    minus: (other: Vector) => Vector = (other) =>
+        new Vector(this.x - other.x, this.y - other.y)
+
     dot: (other: Vector) => number = (other) =>
         this.x * other.x + this.y * other.y
     
