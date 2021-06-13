@@ -31,8 +31,6 @@ export class MenuState extends PIXI.Container implements State {
         const pos = new Positioning(this.renderer)
         const dim = new Dimensions(this.renderer)
         
-        // this.background(positioning)
-        // this.text(pos, dim, context.score)
         this.background(dim)
         this.text(pos, dim)
     }

@@ -23,8 +23,8 @@ export class BoardButton extends PIXI.Container {
         this.board.anchor.set(0.0555, 0.166)
         
         this.text = new PlainText(text, dim.rem(1.25)).wooden()
-        this.text.x = this.board.width / 2
-        this.text.y = this.board.height / 2 - this.text.height / 3
+        this.text.x = this.board.width / 2 - 20
+        this.text.y = this.board.height / 2 - 20
 
         const rect = this.board.getBounds()
         empty.width = rect.width
