@@ -22,8 +22,8 @@ export class Peg extends PIXI.Sprite {
         this.anchor.set(0.5, 0.5)
 
         this.interactive = true
-        this.on('mousedown', this.onPress)
-        this.on('mouseup', this.onRelease)
+        this.on('mousedown', this.onPress).on('touchstart', this.onPress)
+        this.on('mouseup', this.onRelease).on('touchend', this.onRelease)
 
         this.ticker = ticker
     }

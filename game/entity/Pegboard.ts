@@ -44,8 +44,8 @@ export class Pegboard extends PIXI.TilingSprite {
 
         this.ticker = ticker
 
-        this.on('mousemove', this.indicatePotentialBand)
-        this.on('mouseup', this.releasePotentialBand)
+        this.on('mousemove', this.indicatePotentialBand).on('touchmove', this.indicatePotentialBand)
+        this.on('mouseup', this.releasePotentialBand).on('touchend', this.releasePotentialBand)
     }
 
     killOldestPeg = () => {

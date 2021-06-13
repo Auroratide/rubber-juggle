@@ -49,6 +49,7 @@ export class BoardButton extends PIXI.Container {
             .on('mouseover', this.onHover)
             .on('mouseout', this.offHover)
             .on('mouseup', this.onRelease)
+            .on('touchend', this.onRelease)
     }
 
     private onHover = () => {
