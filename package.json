@@ -1,7 +1,7 @@
 {
-  "name": "@auroratide/join-juggle",
+  "name": "@auroratide/peggle-juggle",
   "version": "0.1.0",
-  "description": "",
+  "description": "Game made for GMTK 2021 Game Jam",
   "main": "index.js",
   "scripts": {
     "start": "serve -l 3000 public",
