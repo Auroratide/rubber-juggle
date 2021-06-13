@@ -26,6 +26,8 @@ export class RepeatingTask {
         this.ticker.remove(this.tickTask)
     }
 
+    progress = () => this.n / this.nextDelay
+
     private tickTask = (dt: number) => {
         this.n += 1 / 60 * dt * 1000
 

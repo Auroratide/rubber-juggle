@@ -15,6 +15,7 @@ import { OrbFactory } from '../OrbFactory'
 import { StateManager } from './StateManager'
 import { GameOverState } from './GameOverState'
 import { Save } from '../Save'
+import { NewBalloonBar } from '../entity/NewBalloonBar'
 
 export class PlayState extends PIXI.Container implements State {
     static NAME = 'play'
@@ -80,6 +81,10 @@ export class PlayState extends PIXI.Container implements State {
 
         this.orbGen = new OrbGenerator(this.ticker, dim, orbFactory)
         this.orbGen.start()
+
+        const bar = new NewBalloonBar(this.orbGen, this.resources, this.ticker, dim)
+        bar.y = dim.width - dim.tileWidth
+        ui.addChild(bar)
 
         this.ticker.add(this.checkForGameOver)
     }
