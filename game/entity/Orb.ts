@@ -37,11 +37,13 @@ export class Orb extends PIXI.Sprite {
     onTick = () => {
         this.velocity.apply(this)
 
+        let bouncedAlready = false
         this.bands.forEach(band => {
-            if (this.lastBounced !== band && this.isCollidingWith(band)) {
+            if (!bouncedAlready && this.lastBounced !== band && this.isCollidingWith(band)) {
                 this.score.add(10 * this.velocity.magnitude())
                 this.bounce(band.angleBetween(this.velocity))
                 this.lastBounced = band
+                bouncedAlready = true
             }
         })
     }
