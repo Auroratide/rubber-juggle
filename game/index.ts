@@ -33,6 +33,9 @@ function start() {
         .add(assets.hole) // wow I just realized how close this looks to a certain other word
         .add(assets.tack)
         .add(assets.balloon.idle[0])
+        .add(assets.balloon.pop[0])
+        .add(assets.balloon.pop[1])
+        .add(assets.balloon.pop[2])
         .load(setup(app.stage, app.renderer as Renderer, app.ticker))
 }
 

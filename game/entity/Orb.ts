@@ -5,17 +5,24 @@ import { Velocity } from '../math/Velocity'
 import { Score } from '../Score'
 import { Resources } from '../aliases'
 import { assets } from '../assets'
+import { Dimensions } from '../Dimensions'
+import { Vector } from '../math/Vector'
 
-export class Orb extends PIXI.Sprite {
+export class Orb extends PIXI.AnimatedSprite {
+    private resources: Resources
+    private dimensions: Dimensions
     private radius: number
     private ticker: PIXI.Ticker
     velocity: Velocity
     private bands: Band[]
     private lastBounced: Band
     private score: Score
+    popped: boolean
 
-    constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[], score: Score, resources: Resources) {
-        super(resources[assets.balloon.idle[0]].texture)
+    constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[], score: Score, resources: Resources, dimensions: Dimensions) {
+        super(assets.balloon.idle.map(it => resources[it].texture))
+        this.resources = resources
+        this.dimensions = dimensions
 
         this.radius = 20
 
@@ -31,6 +38,7 @@ export class Orb extends PIXI.Sprite {
 
         this.velocity = velocity
         this.score = score
+        this.popped = false
     }
 
     onTick = () => {
@@ -45,6 +53,10 @@ export class Orb extends PIXI.Sprite {
                 bouncedAlready = true
             }
         })
+
+        if (!this.popped && this.isOutOfBounds()) {
+            this.pop()
+        }
     }
 
     bounce = (angle: Angle) => {
@@ -59,8 +71,25 @@ export class Orb extends PIXI.Sprite {
             this.velocity = this.velocity.increaseBy(0.05)
     }
 
+    pop = () => {
+        if (!this.popped) {
+            this.popped = true
+            this.textures = assets.balloon.pop.map(it => this.resources[it].texture)
+            this.onComplete = () => this.destroy()
+            this.loop = false
+            this.play()
+        }
+    }
+
     isCollidingWith = (band: Band): boolean => {
         return band.distanceFrom(this) <= this.radius
+    }
+
+    isOutOfBounds = () => {
+        const w = this.dimensions.width
+        const t = this.dimensions.tileWidth
+        const r = this.radius
+        return this.x < t - r || this.x - r > w - t || this.y < t - r || this.y - r > w - t
     }
 
     destroy() {
