@@ -19,6 +19,8 @@ export class Orb extends PIXI.AnimatedSprite {
     private score: Score
     popped: boolean
 
+    private idleWait: number
+
     constructor(x: number, y: number, velocity: Velocity, ticker: PIXI.Ticker, bands: Band[], score: Score, resources: Resources, dimensions: Dimensions) {
         super(assets.balloon.idle.map(it => resources[it].texture))
         this.resources = resources
@@ -39,6 +41,9 @@ export class Orb extends PIXI.AnimatedSprite {
         this.velocity = velocity
         this.score = score
         this.popped = false
+
+        this.idleWait = 0
+        this.idleAnimation()
     }
 
     onTick = () => {
@@ -77,7 +82,25 @@ export class Orb extends PIXI.AnimatedSprite {
             this.textures = assets.balloon.pop.map(it => this.resources[it].texture)
             this.onComplete = () => this.destroy()
             this.loop = false
+            this.animationSpeed = 1
             this.play()
+        }
+    }
+
+    idleAnimation = () => {
+        this.animationSpeed = 0.5
+        this.onComplete = () => this.stop()
+        this.loop = false
+        this.play()
+
+        this.ticker.add(this.idleTick)
+    }
+
+    private idleTick = (dt: number) => {
+        this.idleWait += 1 / 60 * dt
+        if (this.idleWait > 1 && !this.playing) {
+            this.idleWait = 0
+            this.gotoAndPlay(0)
         }
     }
 
@@ -93,6 +116,7 @@ export class Orb extends PIXI.AnimatedSprite {
     }
 
     destroy() {
+        this.ticker.remove(this.idleTick)
         this.ticker.remove(this.onTick)
         super.destroy()
     }

@@ -20,7 +20,7 @@ export const setup = (stage: PIXI.Container, renderer: PIXI.Renderer, ticker: PI
     stage.addChild(gameOver)
     stage.addChild(menu)
 
-    // stateManager.firstState(PlayState.NAME)
+    stateManager.firstState(PlayState.NAME)
     // stateManager.firstState(GameOverState.NAME)
-    stateManager.firstState(MenuState.NAME)
+    // stateManager.firstState(MenuState.NAME)
 }
