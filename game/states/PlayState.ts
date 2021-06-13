@@ -65,6 +65,8 @@ export class PlayState extends PIXI.Container implements State {
             board.makeRandomPeg()
         }
 
+        board.pegs[0].gonnaDieSoon()
+
         ui.addChild(this.scoreText)
 
         this.orbLayer = new PIXI.Container()
