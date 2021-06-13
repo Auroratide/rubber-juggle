@@ -76,7 +76,7 @@ export class Orb extends PIXI.AnimatedSprite {
         )
 
         if (this.velocity.magnitude() <= 5)
-            this.velocity = this.velocity.increaseBy(0.05)
+            this.velocity = this.velocity.increaseBy(0.1)
         
         this.sfx.thump.play()
     }
