@@ -12,6 +12,8 @@ import { Score } from '../Score'
 import { Dimensions } from '../Dimensions'
 import { OrbGenerator } from '../OrbGenerator'
 import { OrbFactory } from '../OrbFactory'
+import { StateManager } from './StateManager'
+import { GameOverState } from './GameOverState'
 
 export class PlayState extends PIXI.Container implements State {
     static NAME = 'play'
@@ -26,12 +28,16 @@ export class PlayState extends PIXI.Container implements State {
     private score: Score
     private scoreText: PlainText
 
-    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources) {
+    private orbLayer: PIXI.Container
+    private stateManager: StateManager
+
+    constructor(renderer: PIXI.Renderer, ticker: PIXI.Ticker, resources: Resources, stateManager: StateManager) {
         super()
 
         this.renderer = renderer
         this.ticker = ticker
         this.resources = resources
+        this.stateManager = stateManager
     }
 
     start = () => {
@@ -54,11 +60,11 @@ export class PlayState extends PIXI.Container implements State {
 
         ui.addChild(this.scoreText)
 
-        const orbLayer = new PIXI.Container()
-        orbLayer.addChild(orb)
+        this.orbLayer = new PIXI.Container()
+        this.orbLayer.addChild(orb)
 
         this.addChild(board)
-        this.addChild(orbLayer)
+        this.addChild(this.orbLayer)
         this.addChild(deadZone)
         this.addChild(ui)
 
@@ -67,16 +73,19 @@ export class PlayState extends PIXI.Container implements State {
         this.generator = new PegGenerator(board, this.ticker)
         this.generator.start()
 
-        const orbFactory = new OrbFactory(orbLayer, this.ticker, board, this.score, this.resources, dim)
+        const orbFactory = new OrbFactory(this.orbLayer, this.ticker, board, this.score, this.resources, dim)
 
         this.orbGen = new OrbGenerator(this.ticker, dim, orbFactory)
         this.orbGen.start()
+
+        this.ticker.add(this.checkForGameOver)
     }
 
     stop = () => {
         this.generator.stop()
         this.orbGen.stop()
         this.ticker.remove(this.updateScore)
+        this.ticker.remove(this.checkForGameOver)
         this.removeChildren().forEach(child => {
             if(child instanceof PIXI.Container) {
                 child.destroy({ children: true })
@@ -88,5 +97,11 @@ export class PlayState extends PIXI.Container implements State {
 
     updateScore = () => {
         this.scoreText.text = this.score.value().toString().padStart(6, '0')
+    }
+
+    checkForGameOver = () => {
+        if (this.orbLayer.children.length === 0) {
+            this.stateManager.transitionTo(GameOverState.NAME)
+        }
     }
 }
