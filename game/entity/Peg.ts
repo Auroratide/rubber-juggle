@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js'
 import { Pegboard } from './Pegboard'
 import { Band } from './Band'
+import { Resources } from '../aliases'
+import { assets } from '../assets'
 
 export class Peg extends PIXI.Sprite {
     private ticker: PIXI.Ticker
@@ -9,19 +11,15 @@ export class Peg extends PIXI.Sprite {
 
     private blinkDirection: number = -0.05
 
-    constructor(x: number, y: number, board: Pegboard, ticker: PIXI.Ticker) {
-        super()
+    constructor(x: number, y: number, board: Pegboard, ticker: PIXI.Ticker, resources: Resources) {
+        super(resources[assets.tack].texture)
 
         this.x = x
         this.y = y
         this.board = board
         this.bands = []
 
-        const graphics = new PIXI.Graphics()
-        graphics.beginFill(0xff0000)
-        graphics.drawCircle(0, 0, 20)
-
-        this.addChild(graphics)
+        this.anchor.set(0.5, 0.5)
 
         this.interactive = true
         this.on('mousedown', this.onPress)

@@ -14,6 +14,7 @@ export class Pegboard extends PIXI.TilingSprite {
     private preparedPeg: Peg
     private fakeBand: FakeBand
 
+    private resources: Resources
     private pegsLayer: PIXI.Container
     private bandsLayer: PIXI.Container
     private fakeBandsLayer: PIXI.Container
@@ -23,6 +24,7 @@ export class Pegboard extends PIXI.TilingSprite {
     constructor(resources: Resources, renderer: PIXI.Renderer, ticker: PIXI.Ticker) {
         super(resources[assets.hole].texture, renderer.width, renderer.height)
 
+        this.resources = resources
         this.renderer = renderer
         this.dimensions = new Dimensions(this.renderer)
 
@@ -71,7 +73,7 @@ export class Pegboard extends PIXI.TilingSprite {
     }
 
     makePeg: (x: number, y: number) => Peg = (x, y) => {
-        const peg = new Peg(x, y, this, this.ticker)
+        const peg = new Peg(x, y, this, this.ticker, this.resources)
         this.pegsLayer.addChild(peg)
         this.pegs.push(peg)
         return peg

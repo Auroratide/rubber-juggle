@@ -14,6 +14,6 @@ export const setup = (stage: PIXI.Container, renderer: PIXI.Renderer, ticker: PI
     stage.addChild(play)
     stage.addChild(gameOver)
 
-    // stateManager.firstState(PlayState.NAME)
-    stateManager.firstState(GameOverState.NAME)
+    stateManager.firstState(PlayState.NAME)
+    // stateManager.firstState(GameOverState.NAME)
 }

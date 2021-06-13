@@ -31,6 +31,7 @@ function start() {
     
     app.loader
         .add(assets.hole) // wow I just realized how close this looks to a certain other word
+        .add(assets.tack)
         .load(setup(app.stage, app.renderer as Renderer, app.ticker))
 }
 
