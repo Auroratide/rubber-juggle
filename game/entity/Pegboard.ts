@@ -94,7 +94,7 @@ export class Pegboard extends PIXI.TilingSprite {
     }
 
     joinPreparedPeg: (to: Peg) => Band = (to) => {
-        if (this.preparedPeg) {
+        if (this.preparedPeg && this.preparedPeg !== to) {
             const band = this.joinPegs(this.preparedPeg, to)
             this.preparedPeg = null
             this.sfx.place.play()
