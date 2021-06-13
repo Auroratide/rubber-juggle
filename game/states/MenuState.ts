@@ -65,7 +65,7 @@ export class MenuState extends PIXI.Container implements State {
         pos.centerX(title)
         pos.y(title, dim.width / 4)
 
-        const credits = new PlainText('By Timothy Foster for GMTK 2021\nMusic: "????"', dim.rem(0.5)).wooden()
+        const credits = new PlainText('By Timothy Foster for GMTK 2021\nMusic: "Hillbilly Swing" by Kevin MacLeod', dim.rem(0.5)).wooden()
         credits.anchor.set(0.5, 1)
         pos.bottomCenter(credits, 9 * dim.tileWidth / 8)
 

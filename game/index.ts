@@ -3,6 +3,7 @@ import { Renderer } from 'pixi.js'
 import { setup } from './setup'
 import { assets } from './assets'
 import * as WebFont from 'webfontloader'
+import { sound } from '@pixi/sound'
 
 WebFont.load({
     google: {
@@ -28,6 +29,12 @@ function start() {
     })
     
     document.body.append(app.view)
+
+    sound.add('music', assets.music)
+    sound.play('music', {
+        loop: true,
+        volume: 0.25,
+    })
     
     app.loader
         .add(assets.hole) // wow I just realized how close this looks to a certain other word

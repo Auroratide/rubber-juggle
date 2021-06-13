@@ -29,5 +29,6 @@ export const assets = {
         place: 'assets/sfx/place.mp3',
         pop: 'assets/sfx/pop.mp3',
         thump: 'assets/sfx/thump.mp3',
-    }
+    },
+    music: 'assets/swing.mp3',
 }
