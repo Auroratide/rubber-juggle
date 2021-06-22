@@ -1,4 +1,4 @@
-# Peggle Juggle
+# Rubber Juggle
 
 A simple game made for [GMTK Game Jam 2021](https://itch.io/jam/gmtk-2021) around the theme "Joined Together". Balloons are trying to escape your pegboard, and you must stop them with rubber bands!
 

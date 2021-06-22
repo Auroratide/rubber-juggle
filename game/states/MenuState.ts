@@ -61,7 +61,7 @@ export class MenuState extends PIXI.Container implements State {
     }
 
     private text = (pos: Positioning, dim: Dimensions) => {
-        const title = new PlainText('Peggle Juggle', dim.rem(1.5)).wooden()
+        const title = new PlainText('Rubber Juggle', dim.rem(1.5)).wooden()
         pos.centerX(title)
         pos.y(title, dim.width / 4)
 

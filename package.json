@@ -1,6 +1,6 @@
 {
-  "name": "@auroratide/peggle-juggle",
-  "version": "0.1.0",
+  "name": "@auroratide/rubber-juggle",
+  "version": "1.0.0",
   "description": "Game made for GMTK 2021 Game Jam",
   "main": "index.js",
   "scripts": {
